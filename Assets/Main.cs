@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
+using System.Runtime.Serialization.Json;
 using UnityEngine;
 
 public class Main : MonoBehaviour {
@@ -23,18 +25,17 @@ public class Main : MonoBehaviour {
 
     private string SendResponse(HttpListenerRequest request) {
         string response;
+        using (var stream = new MemoryStream()) {
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ServerList));
+            serializer.WriteObject(stream, new ServerList(data));
+            stream.Seek(0, SeekOrigin.Begin);
 
-        if (data.Length == 0) {
-            response = "No Servers";
-        } else {
-            response = "";
-            foreach (var hostData in data) {
-                var si = new ServerInfo(hostData);
-                var status = si.PasswordProtected() ? "Private" : "Public";
-                response += $"({si.Mode()}) {si.ServerName()}\n{si.ConnectedPlayers()}/{si.PlayerLimit()}  {status}  v{si.Build()}\n\n";
+
+            using (var streamReader = new StreamReader(stream)) {
+                response = streamReader.ReadToEnd();
             }
         }
-
+        
         return response;
     }
 }

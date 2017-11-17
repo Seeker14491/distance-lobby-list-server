@@ -1,15 +1,11 @@
 # Distance Server List Server
 
-This is a server that polls [Distance](http://survivethedistance.com/)'s list of servers, and makes the information available through HTTP. It's implemented as a Unity project in order to have access to the same APIs Distance uses to query servers. It's currently just a proof-of-concept, and simply returns a plain-text string containing the server information.
+This is a server that polls [Distance](http://survivethedistance.com/)'s lobby list, and serves the data as JSON through HTTP. It's implemented as a Unity project in order to have access to the same APIs Distance uses to query servers.
 
-##### An example of text returned
+##### Example JSON returned
 
-```
-(Sprint) Top Maps (Host by Jack)
-2/12  Public  v5465
-
-(Sprint) Brandon Sucks
-2/12  Private  v5465
+```json
+{"servers":[{"build":5465,"connectedPlayers":1,"mode":"Sprint","passwordProtected":true,"playerLimit":24,"serverName":"Seekr's server"}]}
 ```
 
 

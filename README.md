@@ -1,4 +1,4 @@
-# Distance Server List Server
+# Distance Lobby List Server
 
 This is a server that polls [Distance](http://survivethedistance.com/)'s lobby list, and serves the data as JSON through HTTP. It's implemented as a Unity project in order to have access to the same APIs Distance uses to query servers.
 

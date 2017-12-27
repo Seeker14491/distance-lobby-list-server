@@ -8,9 +8,11 @@ public class Main : MonoBehaviour {
     private WebServer ws;
 
     void Start() {
+        const float fetchInterval = 4.0f;
+
         MasterServer.ipAddress = "54.213.90.85";
         MasterServer.port = 23466;
-        InvokeRepeating("RequestHostList", 0.0f, 10.0f);
+        InvokeRepeating("RequestHostList", 0.0f, fetchInterval);
         ws = new WebServer(SendResponse, "http://+:80/");
         ws.Run();
     }
